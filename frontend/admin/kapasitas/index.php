@@ -195,14 +195,12 @@ include_once '../../../backend/middleware/admin.php';
 				<!-- Container-fluid starts -->
 				<div class="container-fluid">
 					<div style="margin-bottom: 30px">
-						<div class="mt-2 mb-3">
-							<button type="button" class="btn btn-primary" data-toggle="modal" id="create">Tambah Kapasitas</button>
-						</div>
+
 						<div class="modal fade bd-example-modal-lg" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">
 							<div class="modal-dialog modal-lg modal-dialog-centered">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="modelHeading">Tambah Kapasitas</h5>
+										<h5 class="modal-title" id="modelHeading">Edit Kapasitas</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
@@ -212,30 +210,22 @@ include_once '../../../backend/middleware/admin.php';
 											<div class="col-md-12">
 
 												<form name="formData" id="formData">
+													<input type="hidden" name="id_jurusan" id="id_jurusan" value>
+
 													<div class="form-group">
-														<input type="hidden" name="old_id_sekolah" id="old_id_sekolah" value>
-														<input type="hidden" name="old_id_jurusan" id="old_id_jurusan" value>
-														<label>Sekolah</label>
-														<select class="selectpicker form-control" name="id_sekolah" id="id_sekolah" data-live-search="true">
-															<option value="" selected="false">Pilih Sekolah</option>
-															<?php
-															include_once '../../../backend/admin/kapasitas/get-id-sekolah.php';
-															while($sekolah = $getSekolah->fetch_array()) {	echo '<option value="' . $sekolah['id_sekolah'] . '">' . $sekolah['nama_sekolah'] . '</option>';}	
-															?>
-														</select>		
+														<label for="">Sekolah</label>
+														<input type="text" name="nama_sekolah" id="nama_sekolah" class="form-control" required>
 													</div>
 
 													<div class="form-group">
-														<label>Jurusan</label>
-														<select class="selectpicker form-control" name="id_jurusan" id="pilih_jurusan" data-live-search="true">
-															<option value="" selected="false">Pilih Jurusan</option>
-														</select>		
+														<label for="">Jurusan</label>
+														<input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control">
 													</div>
 
 													<div class="form-group">
 														<label for="">Kapasitas</label>
-														<input type="text" name="kapasitas" id="kapasitas" class="form-control" required>
-													</div>
+														<input type="number" name="kapasitas" id="kapasitas" class="form-control" required>
+													</div>													
 
 													<button class="btn btn-primary btn-sm" id="saveBtn" style="width: 100%">Simpan</button>
 												</form>
@@ -274,31 +264,6 @@ include_once '../../../backend/middleware/admin.php';
 </div>
 
 <script>
-	$('#id_sekolah').on('change', function (e) {
-		var optionSelected = $("option:selected", this);
-		var valueSelected = this.value;
-		$.ajax({
-			url: "../../../backend/admin/kapasitas/get-id-jurusan.php/?id_sekolah=" + valueSelected,
-			type: 'GET',
-			dataType: 'json',
-			success: function(data) {  
-				$.each(data, function(index) {
-					$('#pilih_jurusan').append($('<option>', { 
-						value: data[index].id_jurusan,
-						text : data[index].nama_jurusan
-					}));
-				});
-				$('#pilih_jurusan').selectpicker('refresh');
-
-			},
-			error: function() {
-				alert("No");
-			}
-		});
-	});
-</script>
-
-<script>
 	var tabel = null;
 
 	$(document).ready(function() {
@@ -320,8 +285,7 @@ include_once '../../../backend/middleware/admin.php';
 			{ "data": "kapasitas" },
 			{ 
 				"render": function ( data, type, row ) { 
-					var html  = "<a href='javascript:void(0)' data-toggle='tooltip' data-id='" + row.id_sekolah + "' data-original-title='Edit' class='edit btn btn-primary btn-sm editData'>Edit</a> | " 
-					html += "<a href='javascript:void(0)' data-toggle='tooltip' data-id='" + row.id_sekolah + "' data-original-title='Delete' class='delete btn btn-danger btn-sm deleteData'>Hapus</a>"
+					var html  = "<a href='javascript:void(0)' data-toggle='tooltip' data-id='" + row.id_jurusan + "' data-original-title='Edit' class='edit btn btn-primary btn-sm editData'>Edit</a>"
 
 					return html
 				}
@@ -330,68 +294,35 @@ include_once '../../../backend/middleware/admin.php';
 		});
 
 		$('body').on('click', '.editData', function () {
-			var id_jurusan = $(this).data('idJurusan');
-			$.ajax({
-				url: "../../../backend/admin/kapasitas/get-id.php/?id_sekolah=" + id_sekolah + '&id_jurusan=' + id_jurusan,
-				type: 'GET',
-				dataType: 'json',
-				success: function(data) {     
-					if (data) {
-						$('#modelHeading').html("Edit Jurusan");
-						$('#ajaxModal').modal('show');
-						$('#id_jurusan').val(data[0].id_jurusan);
-						$('#id_jurusan').attr('readonly', 'true');
-						$('#old_id_sekolah').val(data[0].id_sekolah);
-						$('#old_id_jurusan').val(data[0].id_jurusan);
-						$('select[name=id_sekolah]').val(data[0].id_sekolah);
-						$('select[name=id_jurusan]').val(data[0].id_jurusan);
-						$('.selectpicker').selectpicker('refresh');
-						$('#nama_jurusan').val(data[0].nama_jurusan);
-					}
-				},
-				error: function() {
-					alert("No");
-				}
-			});
-		});		
-
-		$('body').on('click', '.deleteData', function () {
 			var id_jurusan = $(this).data('id');
 			$.ajax({
-				url: "../../../backend/admin/jurusan/get-id.php/?id_jurusan=" + id_jurusan,
+				url: "../../../backend/admin/kapasitas/get-id.php/?id_jurusan=" + id_jurusan,
 				type: 'GET',
 				dataType: 'json',
 				success: function(data) {     
 					if (data) {
-						$('#deleteHeading').html("Hapus Jurusan");
-						$('#deleteModal').modal('show');
-						$('#id_delete').val(data[0].id_jurusan);
-						$('#id_delete').attr('readonly', 'true');
-						$('#datas').html(' Jurusan ' + data[0].nama_jurusan + ' di Sekolah ' + data[0].nama_sekolah);
+						$('#modelHeading').html("Edit Kapasitas");
+						$('#ajaxModal').modal('show');
+						$('#id_jurusan').val(data[0].id_jurusan);
+						$('#nama_jurusan').val(data[0].nama_jurusan);
+						$('#nama_jurusan').attr('readonly', 'true');							
+						$('#nama_sekolah').val(data[0].nama_sekolah);
+						$('#nama_sekolah').attr('readonly', 'true');							
+						$('#kapasitas').val(data[0].kapasitas);
 					}
 				},
 				error: function() {
 					alert("No");
 				}
 			});
-		});
-
-		$('#create').click(function () {
-			$('#saveBtn').val("create");
-			$('#id_jurusan').val('');
-			$('#formData').trigger("reset");
-			$('select[name=id_sekolah]').val('');
-			$('.selectpicker').selectpicker('refresh');
-			$('#modelHeading').html("Tambah Jurusan");
-			$('#ajaxModal').modal('show');
-		});
+		});	
 
 		$('#saveBtn').click(function (e) {
 			e.preventDefault();
 
 			$.ajax({
 				data: $('#formData').serialize(),
-				url: "../../../backend/admin/kapasitas/create-or-update.php",
+				url: "../../../backend/admin/kapasitas/update.php",
 				type: "POST",
 				dataType: 'json',
 				success: function (data) {
