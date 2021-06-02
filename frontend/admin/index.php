@@ -5,7 +5,7 @@ if (!isset($_SESSION['uid'])) {
 	$_SESSION['msg'] = "";
 	header('location: ../../frontend/auth/login.php');
 } else {
-	header('location: profil/');
+	header('location: sekolah/');
 }
 
 ?>

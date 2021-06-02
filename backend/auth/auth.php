@@ -39,7 +39,7 @@ if (isset($_POST['register'])) {
     mysqli_query($connection, $query);
     $_SESSION['nisn'] = $nisn;
     $_SESSION['success'] = "You are now logged in";
-    header('location: ../../index.php');
+    header('location: ../../dashboard.php');
   }
 }
 
@@ -62,7 +62,7 @@ if (isset($_POST['login'])) {
       $getUid = $results->fetch_array()['uid'];
       $_SESSION['uid'] = $getUid;
       $_SESSION['success'] = "You are now logged in";
-      header('location: ../../index.php');
+      header('location: ../../dashboard.php');
     }else {
       array_push($errors, "Wrong NISN/Password Combination");
     }

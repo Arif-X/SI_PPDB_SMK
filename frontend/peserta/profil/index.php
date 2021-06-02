@@ -11,7 +11,7 @@ include_once '../../../backend/server/connection.php';
 include_once '../../../backend/peserta/profil/get.php';
 include_once '../menu/menu.php';
 
-// include_once '../../../backend/middleware/peserta.php';
+include_once '../../../backend/middleware/peserta.php';
 
 ?>
 

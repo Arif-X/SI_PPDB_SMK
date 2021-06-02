@@ -5,10 +5,10 @@ $search = $_POST['search']['value'];
 $limit = $_POST['length']; 
 $start = $_POST['start']; 
 
-$sql = mysqli_query($connection, "SELECT id_jurusan FROM kapasitas WHERE NOT kapasitas=0"); 
+$sql = mysqli_query($connection, "SELECT id_jurusan FROM kapasitas WHERE kapasitas>0"); 
 $sql_count = mysqli_num_rows($sql); 
 
-$query = "SELECT jurusan.nama_jurusan, sekolah.nama_sekolah, kapasitas.* FROM kapasitas INNER JOIN jurusan ON jurusan.id_jurusan=kapasitas.id_jurusan INNER JOIN sekolah ON sekolah.id_sekolah=jurusan.id_sekolah  WHERE (nama_sekolah LIKE '%".$search."%' OR nama_jurusan LIKE '%".$search."%' AND NOT kapasitas.kapasitas=0)";
+$query = "SELECT jurusan.nama_jurusan, sekolah.nama_sekolah, kapasitas.* FROM kapasitas INNER JOIN jurusan ON jurusan.id_jurusan=kapasitas.id_jurusan INNER JOIN sekolah ON sekolah.id_sekolah=jurusan.id_sekolah  WHERE (nama_sekolah LIKE '%".$search."%' OR nama_jurusan LIKE '%".$search."%')";
 $order_index = $_POST['order'][0]['column']; 
 $order_field = $_POST['columns'][$order_index]['data']; 
 $order_ascdesc = $_POST['order'][0]['dir']; 
@@ -18,7 +18,7 @@ $sql_data = mysqli_query($connection, $query.$order." LIMIT ".$limit." OFFSET ".
 $sql_filter = mysqli_query($connection, $query); 
 $sql_filter_count = mysqli_num_rows($sql_filter); 
 
-$datas = mysqli_query($connection, "SELECT id_jurusan FROM kapasitas WHERE NOT kapasitas=0");
+$datas = mysqli_query($connection, "SELECT id_jurusan FROM kapasitas WHERE kapasitas>0");
 $allData = mysqli_fetch_all($datas, MYSQLI_ASSOC); 
 
 $data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); 

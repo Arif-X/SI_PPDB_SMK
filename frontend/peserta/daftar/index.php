@@ -10,6 +10,8 @@ include_once '../menu/menu.php';
 include_once '../../../backend/server/connection.php';
 include '../../../backend/peserta/daftar/validasi.php';
 
+include_once '../../../backend/middleware/peserta.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -194,19 +196,38 @@ include '../../../backend/peserta/daftar/validasi.php';
 				<div class="container-fluid">
 					<div id="sudah">
 						<div class="alert alert-warning" role="alert">
-							Anda Sudah Mendaftar di Sekolah dan Jurusan Ini atau Sudah Melebihi Pendaftaran Maksimum!
+							Anda Sudah Mendaftar di Sekolah dan Jurusan Ini atau Sudah Melebihi Pendaftaran Maksimum atau Kapasitas Kelas Kosong!
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 					</div>
+
+					<div id="sukses">
+						<div class="alert alert-success" role="alert">
+							Berhasil Mendaftar!
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+
+					<div id="hps">
+						<div class="alert alert-danger" role="alert">
+							Berhasil Dihapus!
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+
 					<div style="margin-bottom: 30px">
 
 						<div class="modal fade bd-example-modal-lg" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">
 							<div class="modal-dialog modal-lg modal-dialog-centered">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title" id="modelHeading">Edit Kapasitas</h5>
+										<h5 class="modal-title" id="modelHeading">Daftar</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
@@ -234,6 +255,33 @@ include '../../../backend/peserta/daftar/validasi.php';
 													</div>													
 
 													<button class="btn btn-primary btn-sm" id="saveBtn" style="width: 100%">Simpan</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade bd-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-lg modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="deleteModalHeading">Hapus</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-md-12">
+
+												<form name="formDelete" id="formDelete">
+																								
+													<h5>Ingin Menghapus Pendaftaran di <strong id="sekolah"></strong> pada Jurusan <strong id="jurusan"></strong>?</h5>
+													<input type="hidden" name="id" id="idDaftar">
+													<input type="hidden" name="uid" id="uid">
+													<button class="btn btn-danger btn-sm" id="deleteBtn" style="width: 100%">Hapus</button>
 												</form>
 											</div>
 										</div>
@@ -296,6 +344,8 @@ include '../../../backend/peserta/daftar/validasi.php';
 
 	$(document).ready(function() {
 		$('#sudah').hide();
+		$('#sukses').hide();
+		$('#hps').hide();
 
 		tabel = $('#tables').DataTable({
 			"processing": true,
@@ -341,7 +391,7 @@ include '../../../backend/peserta/daftar/validasi.php';
 			{ "data": "kapasitas" },
 			{ 
 				"render": function ( data, type, row ) { 
-					var html  = "<a href='javascript:void(0)' data-toggle='tooltip' data-id='" + row.id_jurusan + "' data-original-title='Hapus' class='edit btn btn-danger btn-sm daftar'>Hapus</a>"
+					var html  = "<a href='javascript:void(0)' data-toggle='tooltip' data-id='" + row.id + "' data-original-title='Hapus' class='hapus btn btn-danger btn-sm'>Hapus</a>"
 
 					return html
 				}
@@ -374,6 +424,28 @@ include '../../../backend/peserta/daftar/validasi.php';
 			});
 		});	
 
+		$('body').on('click', '.hapus', function () {
+			var id = $(this).data('id');
+			$.ajax({
+				url: "../../../backend/peserta/daftar/get-id-daftar.php/?id=" + id,
+				type: 'GET',
+				dataType: 'json',
+				success: function(data) {
+					if (data) {
+						$('#deleteModalHeading').html("Hapus Pendaftaran");
+						$('#deleteModal').modal('show');
+						$('#idDaftar').val(data[0].id);
+						$('#sekolah').html(data[0].nama_sekolah);
+						$('#jurusan').html(data[0].nama_jurusan);
+						$('#uid').val(data[0].uid);				
+					}
+				},
+				error: function() {
+					alert("No");
+				}
+			});
+		});	
+
 		$('#saveBtn').click(function (e) {
 			e.preventDefault();
 
@@ -385,15 +457,35 @@ include '../../../backend/peserta/daftar/validasi.php';
 				success: function (data) {
 					$('#formData').trigger("reset");
 					$('#ajaxModal').modal('hide');
-					$('#tablesDaftar').DataTable().ajax.reload()
-					$('#sudah').html(data).show();  					
+					document.getElementById('sukses').style.display = 'block';
+					$('#tablesDaftar').DataTable().ajax.reload();					
 				},
 				error: function (data) {
 					console.log('Error:', data);
 					$('#formData').trigger("reset");
 					$('#ajaxModal').modal('hide');
-					$('#tablesDaftar').DataTable().ajax.reload()
 					document.getElementById('sudah').style.display = 'block';
+					$('#tablesDaftar').DataTable().ajax.reload();					
+				}
+			});
+		});
+
+		$('#deleteBtn').click(function (e) {
+			e.preventDefault();
+			$.ajax({
+				data: $('#formDelete').serialize(),
+				url: "../../../backend/peserta/daftar/delete-daftar.php",
+				type: "POST",
+				dataType: 'json',
+				success: function (data) {
+					$('#formDelete').trigger("reset");
+					$('#deleteModal').modal('hide');
+					document.getElementById('hps').style.display = 'block';
+					$('#tablesDaftar').DataTable().ajax.reload();
+				},
+				error: function (data) {
+					console.log('Error:', data);
+					$('#deleteBtn').html('Hapus');
 				}
 			});
 		});

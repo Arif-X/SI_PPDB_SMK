@@ -7,6 +7,12 @@ if (!isset($_SESSION['uid'])) {
 	header('location: ../../../frontend/auth/login.php');
 }
 
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($_SESSION['uid']);
+	header('location: frontend/auth/login.php');
+}
+
 include_once '../../../backend/server/connection.php';
 include_once '../menu/menu.php';
 

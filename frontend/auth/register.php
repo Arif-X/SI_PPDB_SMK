@@ -22,8 +22,8 @@ include('../../backend/auth/auth.php');
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-success">
-		<strong><a class="navbar-brand text-white" href="../../">AUTH</a></strong>
+	<nav class="navbar navbar-expand-lg navbar-light bg-secondary shadow-sm">
+		<strong><a class="navbar-brand text-white" href="../../">PPDB SMK</a></strong>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -35,13 +35,13 @@ include('../../backend/auth/auth.php');
 			<div class="my-2 my-lg-0">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active">
-						<strong><a class="nav-link text-white" href="register.php">Register <span class="sr-only"></span></a></strong>
+						<strong><a class="nav-link text-white" href="register.php">Daftar <span class="sr-only"></span></a></strong>
 					</li>
 					<li class="nav-item">
 						<strong class="nav-link text-white">|<span class="sr-only"></span></strong>
 					</li>
 					<li class="nav-item">
-						<strong><a class="nav-link text-white" href="login.php">Login <span class="sr-only"></span></a></strong>
+						<strong><a class="nav-link text-white" href="login.php">Masuk <span class="sr-only"></span></a></strong>
 					</li>
 				</ul>
 			</div>
@@ -53,8 +53,8 @@ include('../../backend/auth/auth.php');
 			</div>
 			<div class="col-md-6">	
 				<div class="card">
-					<div class="card-header text-white bg-success">
-						<strong>Register</strong>
+					<div class="card-header text-white bg-secondary">
+						<strong>Daftar</strong>
 					</div>
 					<div class="card-body">	
 						<form method="post" action="register.php">
@@ -86,11 +86,11 @@ include('../../backend/auth/auth.php');
 								<input type="password" name="password_2" class="form-control">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-success" name="register" style="width:100%;">Register</button>
+								<button type="submit" class="btn btn-secondary" name="register" style="width:100%;">Daftar</button>
 							</div>
 						</form>
 						<p>
-							Already a member? <a href="login.php">Login</a>
+							Sudah Mendaftar? <a href="login.php">Masuk Disini</a>
 						</p>
 					</div>
 				</div>
