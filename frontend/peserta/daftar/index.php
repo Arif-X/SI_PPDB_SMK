@@ -87,7 +87,9 @@ include_once '../../../backend/middleware/peserta.php';
 				<div class="logo-wrapper">
 					<div class="row">
 						<dir class="col-sm-4 text-center">
-							<img src="{{ URL::asset('logo.png') }}" class="image-light" alt="" style="max-width: 80%; height: auto;"/> 
+							<a href="../../../">
+								<img src="../../../lib/img/logo.jpg" alt="" style="max-width: 80%; height: auto;"/> 								
+							</a>
 						</dir>
 						<dir class="col-sm-8" style="vertical-align: middle; padding-left: 0px !important;">
 							<h3 style="font-weight: bold; vertical-align: bottom;">SI PPDB SMK</h3>            
@@ -277,7 +279,7 @@ include_once '../../../backend/middleware/peserta.php';
 											<div class="col-md-12">
 
 												<form name="formDelete" id="formDelete">
-																								
+
 													<h5>Ingin Menghapus Pendaftaran di <strong id="sekolah"></strong> pada Jurusan <strong id="jurusan"></strong>?</h5>
 													<input type="hidden" name="id" id="idDaftar">
 													<input type="hidden" name="uid" id="uid">

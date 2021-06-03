@@ -7,7 +7,8 @@ if(isset($_POST['upload'])){
 	$fileSize = $_FILES['userfile']['size'];
 	$fileType = $_FILES['userfile']['type'];
 	$filePath = $uploadDir . $fileName;
-	$result = move_uploaded_file($tmpName, $filePath);
+	shell_exec("sudo chmod 777 ../../../file/pasfoto");
+	$result = move_uploaded_file($tmpName, $filePath);	
 	if($result){
 		session_start();
 		include '../../server/connection.php';
