@@ -59,7 +59,7 @@ include('../../backend/auth/auth.php');
 						<form method="post" action="login.php">
 							<?php include('../../backend/auth/errors.php'); ?>
 							<div class="form-group">
-								<label>UID</label>
+								<label>UID/NISN</label>
 								<input type="text" name="uid" class="form-control">
 							</div>
 							<div class="form-group">

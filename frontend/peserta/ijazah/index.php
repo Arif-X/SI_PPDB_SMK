@@ -85,7 +85,9 @@ include_once '../../../backend/middleware/peserta.php';
 				<div class="logo-wrapper">
 					<div class="row">
 						<dir class="col-sm-4 text-center">
-							<img src="{{ URL::asset('logo.png') }}" class="image-light" alt="" style="max-width: 80%; height: auto;"/> 
+							<a href="../../../">
+								<img src="../../../lib/img/logo.jpg" alt="" style="max-width: 80%; height: auto;"/> 								
+							</a>
 						</dir>
 						<dir class="col-sm-8" style="vertical-align: middle; padding-left: 0px !important;">
 							<h3 style="font-weight: bold; vertical-align: bottom;">SI PPDB SMK</h3>            
