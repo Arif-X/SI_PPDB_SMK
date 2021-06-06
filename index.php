@@ -106,12 +106,13 @@
 						</div>
 
 						<div class="col-lg-8 content">
-							<h2>Firut-Fitur pada Website SI PPDB SMK</h2>
+							<h2>Fitur-Fitur pada Website SI PPDB SMK</h2>
 
 							<ul>
 								<li><i class="ion-android-checkmark-circle"></i> Daftar Online SMK.</li>
+								<li><i class="ion-android-checkmark-circle"></i> Daftar 3 Jurusan yang Ada di Website Ini.</li>
 								<li><i class="ion-android-checkmark-circle"></i> Daftar Banyak dari SMK & Jurusan Lainnya.</li>
-								<li><i class="ion-android-checkmark-circle"></i> banyak Pilihan SMK yang Bisa Didaftar dengan Kuantitas Kapasitas Jurusan yang Diberikan.</li>
+								<li><i class="ion-android-checkmark-circle"></i> Banyak Pilihan SMK yang Bisa Didaftar dengan Kuantitas Kapasitas Jurusan yang Diberikan.</li>
 							</ul>
 
 						</div>
