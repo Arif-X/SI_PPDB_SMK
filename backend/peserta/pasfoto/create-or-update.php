@@ -7,7 +7,6 @@ if(isset($_POST['upload'])){
 	$fileSize = $_FILES['userfile']['size'];
 	$fileType = $_FILES['userfile']['type'];
 	$filePath = $uploadDir . $fileName;
-	shell_exec("sudo chmod 777 ../../../file/pasfoto");
 	$result = move_uploaded_file($tmpName, $filePath);	
 	if($result){
 		session_start();
@@ -20,7 +19,7 @@ if(isset($_POST['upload'])){
 				header("Location: ../../../frontend/peserta/pasfoto/");
 			}
 		} else {
-			$query = mysqli_query($connection, "UPDATE foto SET pasphoto='$pasphoto' WHERE uid = $uid");
+			$query = mysqli_query($connection, "UPDATE foto SET pasphoto='$filePath' WHERE uid = $uid");
 			if($query){
 				header("Location: ../../../frontend/peserta/pasfoto/");
 			}
