@@ -3,7 +3,9 @@
 $data = '
 <a href="../sekolah/" class="sidebar-header"><i class="icon-desktop"></i><span>MANAJEMEN SEKOLAH</span></a>
 <a href="../jurusan/" class="sidebar-header"><i class="icon-desktop"></i><span>MANAJEMEN JURUSAN</span></a>
-<a href="../kapasitas/" class="sidebar-header"><i class="icon-desktop"></i><span>MANAJEMEN KAPASITAS KELAS</span></a>
+<a href="../kapasitas/" class="sidebar-header"><i class="icon-desktop"></i><span>KAPASITAS JURUSAN</span></a>
+<a href="../peserta/" class="sidebar-header"><i class="icon-desktop"></i><span>DATA PESERTA</span></a>
+<a href="../pendaftaran/" class="sidebar-header"><i class="icon-desktop"></i><span>DATA PENDAFTARAN</span></a>
 ';
 
 $report = '<p><a href="https://api.whatsapp.com/send?phone=6282228882543" target="_blank">Whatsapp</a>

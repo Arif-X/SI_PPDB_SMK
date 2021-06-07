@@ -10,7 +10,7 @@ $start = $_POST['start'];
 $sql = mysqli_query($connection, "SELECT id FROM mendaftar_di"); 
 $sql_count = mysqli_num_rows($sql); 
 
-$query = "SELECT jurusan.nama_jurusan, sekolah.nama_sekolah, kapasitas.kapasitas, mendaftar_di.* FROM mendaftar_di INNER JOIN jurusan ON jurusan.id_jurusan=mendaftar_di.id_jurusan INNER JOIN sekolah ON sekolah.id_sekolah=jurusan.id_sekolah INNER JOIN kapasitas ON kapasitas.id_jurusan=jurusan.id_jurusan WHERE (nama_sekolah LIKE '%".$search."%' OR nama_jurusan LIKE '%".$search."%' AND uid='$uid')";
+$query = "SELECT jurusan.nama_jurusan, sekolah.nama_sekolah, kapasitas.kapasitas, mendaftar_di.* FROM mendaftar_di INNER JOIN jurusan ON jurusan.id_jurusan=mendaftar_di.id_jurusan INNER JOIN sekolah ON sekolah.id_sekolah=jurusan.id_sekolah INNER JOIN kapasitas ON kapasitas.id_jurusan=jurusan.id_jurusan WHERE uid='$uid' AND (nama_sekolah LIKE '%".$search."%' OR nama_jurusan LIKE '%".$search."%')";
 $order_index = $_POST['order'][0]['column']; 
 $order_field = $_POST['columns'][$order_index]['data']; 
 $order_ascdesc = $_POST['order'][0]['dir']; 
