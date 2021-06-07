@@ -187,7 +187,7 @@ include_once '../../../backend/middleware/admin.php';
 								<ol class="breadcrumb pull-right">
 									<li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i></a></li>
 									<li class="breadcrumb-item">ADMIN</li>
-									<li class="breadcrumb-item active">DATA PESESRTA</li>
+									<li class="breadcrumb-item active">DATA PESERTA</li>
 								</ol>
 							</div>
 						</div>

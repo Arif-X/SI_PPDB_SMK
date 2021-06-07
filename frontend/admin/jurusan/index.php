@@ -196,6 +196,7 @@ include_once '../../../backend/middleware/admin.php';
 
 				<!-- Container-fluid starts -->
 				<div class="container-fluid">
+
 					<div style="margin-bottom: 30px">
 						<div class="mt-2 mb-3">
 							<button type="button" class="btn btn-primary" data-toggle="modal" id="create">Tambah Jurusan</button>

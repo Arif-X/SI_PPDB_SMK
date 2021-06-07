@@ -32,7 +32,7 @@ include_once '../../../backend/middleware/admin.php';
 	<link rel="icon" href="favicon.png" type="image/x-icon" />
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 
-	<title>Manajemen Sekolah</title>
+	<title>Data Pendafatran</title>
 
 	<!--Google font-->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
@@ -187,7 +187,7 @@ include_once '../../../backend/middleware/admin.php';
 								<ol class="breadcrumb pull-right">
 									<li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i></a></li>
 									<li class="breadcrumb-item">ADMIN</li>
-									<li class="breadcrumb-item active">DATA PESESRTA</li>
+									<li class="breadcrumb-item active">DATA PENDAFTARAN</li>
 								</ol>
 							</div>
 						</div>
